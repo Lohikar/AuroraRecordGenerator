@@ -82,9 +82,13 @@ namespace AuroraRecordGenerator
 			Data.NoBorg = NoBorg.IsChecked ?? false;
 			Data.NoProsthetic = NoProsthetic.IsChecked ?? false;
 			Data.NoRevive = NoRevive.IsChecked ?? false;
+
 			// Figure out what subspecies we've got.
 			var subspecies = SubSpeciesCombo.SelectedItem as string;
 			Data.Subspecies = subspecies != null ? Utility.SubspeciesNiceNameToEnum(subspecies) : SpeciesSubType.None;
+
+			// Figure out their species too.
+			Data.Species = (SpeciesType)SpeciesCombo.SelectedValue;
 
 			var wnd = new GeneratedResultWindow(Data);
 			wnd.Show();
