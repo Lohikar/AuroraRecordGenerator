@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using Humanizer;
+using System.Linq;
 using System.Text;
-using Humanizer;
 
 namespace AuroraRecordGenerator
 {
@@ -20,15 +20,17 @@ namespace AuroraRecordGenerator
 			record.AppendLine($"Clearance Level: {_targetRecord.Clearance.IfEmpty("Not Specified")}");
 			record.AppendLine($"Employed As: {_targetRecord.EmployedAs.IfEmpty("Assistant")}");
 			if (_targetRecord.CharHeight != null)
-				record.AppendLine($"Height: {_targetRecord.CharHeight} cm ({Utility.CmToFeet(_targetRecord.CharHeight.Value)})");
+				record.AppendLine($"Height: {_targetRecord.CharHeight} cm");// ({Utility.CmToFeet(_targetRecord.CharHeight.Value)})
 
 			if (_targetRecord.Weight != null)
-				record.AppendLine($"Weight: {_targetRecord.Weight} kg ({Utility.KgToLb(_targetRecord.Weight ?? 0)})");
-
-			record.AppendLine();
+				record.AppendLine($"Weight: {_targetRecord.Weight} kg ({Utility.KgToLb(_targetRecord.Weight ?? 0)} lb)");
 
 			// identifying features
-			// TODO: identifying features
+			var trimmedFeatures = _targetRecord.DistinguishingFeatures.Trim();
+			if (trimmedFeatures.Length > 0)
+				record.AppendLine($"Distinguishing Features: {trimmedFeatures}");
+
+			record.AppendLine();
 
 			// general notes
 			WriteSectionIfAny(ref record,
@@ -46,7 +48,7 @@ namespace AuroraRecordGenerator
 			_commonRecords = record.ToString();
 		}
 
-		private void MakeEmploymentRecords()
+		private string MakeEmploymentRecords()
 		{
 			var recordText = new StringBuilder();
 			if (_commonRecords.IsEmpty())
@@ -89,10 +91,10 @@ namespace AuroraRecordGenerator
 					_employmentSkills);
 			}
 
-			_employmentRecordGenerated = recordText.ToString();
+			return recordText.ToString();
 		}
 
-		private void MakeMedicalRecords()
+		private string MakeMedicalRecords()
 		{
 			var recordText = new StringBuilder();
 			if (_commonRecords.IsEmpty())
@@ -106,10 +108,10 @@ namespace AuroraRecordGenerator
 				!_medicalPsychHistory.Any() &&
 				!_medicalPsychNotes.Any() &&
 				!_medicalPrescriptions.Any() &&
-				!TargetRecord.NoBorg &&
-				!TargetRecord.NoClone &&
-				!TargetRecord.NoProsthetic &&
-				!TargetRecord.NoRevive)
+				!_targetRecord.NoBorg &&
+				!_targetRecord.NoClone &&
+				!_targetRecord.NoProsthetic &&
+				!_targetRecord.NoRevive)
 			{
 				recordText.AppendLine("/// NO MEDICAL RECORD FOUND ///");
 			}
@@ -121,20 +123,20 @@ namespace AuroraRecordGenerator
 				recordText.AppendLine(
 					" The following information is protected by doctor-patient confidentiality laws. Do not release without patient's consent.\n");
 
-				if (TargetRecord.NoBorg || TargetRecord.NoClone || TargetRecord.NoProsthetic || TargetRecord.NoRevive)
+				if (_targetRecord.NoBorg || _targetRecord.NoClone || _targetRecord.NoProsthetic || _targetRecord.NoRevive)
 				{
 					recordText.AppendLine("IMPORTANT NOTES:");
 
-					if (TargetRecord.NoBorg)
+					if (_targetRecord.NoBorg)
 						MakeMedicalNote(ref recordText, "DO NOT BORGIFY");
 
-					if (TargetRecord.NoClone)
+					if (_targetRecord.NoClone)
 						MakeMedicalNote(ref recordText, "DO NOT CLONE");
 
-					if (TargetRecord.NoProsthetic)
+					if (_targetRecord.NoProsthetic)
 						MakeMedicalNote(ref recordText, "DO NOT INSTALL PROSTHETICS");
 
-					if (TargetRecord.NoRevive)
+					if (_targetRecord.NoRevive)
 						MakeMedicalNote(ref recordText, "DO NOT REVIVE");
 
 					recordText.AppendLine();
@@ -161,10 +163,10 @@ namespace AuroraRecordGenerator
 					_medicalPrescriptions);
 			}
 
-			_medicalRecordGenerated = recordText.ToString();
+			return recordText.ToString();
 		}
 
-		private void MakeSecurityRecords()
+		private string MakeSecurityRecords()
 		{
 			var recordText = new StringBuilder();
 			if (_commonRecords.IsEmpty())
@@ -190,7 +192,7 @@ namespace AuroraRecordGenerator
 					_securityRecords);
 			}
 
-			_securityRecordGenerated = recordText.ToString();
+			return recordText.ToString();
 		}
 	}
 }

@@ -1,5 +1,5 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
+using System;
 
 namespace AuroraRecordGenerator
 {
@@ -8,18 +8,25 @@ namespace AuroraRecordGenerator
 	{
 		[ProtoEnum]
 		None = 0,
+
 		[ProtoEnum]
 		Human,
+
 		[ProtoEnum]
 		Skrell,
+
 		[ProtoEnum]
 		Tajara,
+
 		[ProtoEnum]
 		Unathi,
+
 		[ProtoEnum]
 		Vaurca,
+
 		[ProtoEnum]
 		Diona,
+
 		[ProtoEnum]
 		IPC
 	}
@@ -29,17 +36,23 @@ namespace AuroraRecordGenerator
 	{
 		[ProtoEnum]
 		None = 0,
-		[ProtoEnum]
+
+		[ProtoEnum, SubspeciesMeta(SpeciesType.Tajara, "M'sai")]
 		MsaiTajara,
-		[ProtoEnum]
+
+		[ProtoEnum, SubspeciesMeta(SpeciesType.Tajara, "Zhan-Khazan")]
 		ZhanTajara,
-		[ProtoEnum]
+
+		[ProtoEnum, SubspeciesMeta(SpeciesType.Vaurca, "Type A (Worker)")]
 		VaurcaWorker,
-		[ProtoEnum]
+
+		[ProtoEnum, SubspeciesMeta(SpeciesType.Vaurca, "Type B (Warrior)")]
 		VaurcaWarrior,
-		[ProtoEnum]
+
+		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Shell Frame")]
 		IpcShell,
-		[ProtoEnum]
+
+		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Industrial Frame")]
 		IpcG1Industrial
 	}
 
@@ -48,8 +61,10 @@ namespace AuroraRecordGenerator
 	{
 		[ProtoEnum]
 		NotApplicable = 0,
+
 		[ProtoEnum]
 		Male,
+
 		[ProtoEnum]
 		Female
 	}
@@ -59,8 +74,20 @@ namespace AuroraRecordGenerator
 		/// <summary>
 		/// The current in-character date.
 		/// </summary>
-		public static DateTime IcDate => new DateTime(2458, 
+		public static DateTime IcDate => new DateTime(DateTime.Now.Year + 442,
 			DateTime.Now.Month,
 			DateTime.Now.Day);
+	}
+
+	[AttributeUsage(AttributeTargets.Field)]
+	public class SubspeciesMetaAttribute : Attribute
+	{
+		public SpeciesType AssociatedSpecies {get; private set;}
+		public string NiceName { get; private set; }
+		public SubspeciesMetaAttribute(SpeciesType associatedType, string nicename)
+		{
+			AssociatedSpecies = associatedType;
+			NiceName = nicename;
+		}
 	}
 }

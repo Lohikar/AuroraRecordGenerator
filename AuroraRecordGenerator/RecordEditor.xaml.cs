@@ -1,11 +1,11 @@
-﻿using System;
+﻿using MahApps.Metro.Controls.Dialogs;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AuroraRecordGenerator
 {
@@ -21,6 +21,7 @@ namespace AuroraRecordGenerator
 			DataContext = Data;
 			ProtoBuf.Serializer.PrepareSerializer<GenderType>();
 			ProtoBuf.Serializer.PrepareSerializer<SpeciesType>();
+			ProtoBuf.Serializer.PrepareSerializer<SpeciesSubType>();
 			ProtoBuf.Serializer.PrepareSerializer<Record>();
 			InitializeComponent();
 			SubSpeciesCombo.ItemsSource = GetSpeciesOptions();
@@ -29,13 +30,12 @@ namespace AuroraRecordGenerator
 		private Record Data { get; set; }
 		private string _currentFilePath;
 
-
 		private void SpeciesSelectChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (SpeciesCombo.SelectionBoxItem == null)
 				return;
 
-			var type = (SpeciesType) SpeciesCombo.SelectedValue;
+			var type = (SpeciesType)SpeciesCombo.SelectedValue;
 
 			switch (type)
 			{
@@ -55,13 +55,19 @@ namespace AuroraRecordGenerator
 					Debug.WriteLine("Enabled GenderCombo, type is " + type);
 					GenderCombo.IsEnabled = true;
 					break;
+
 				case SpeciesType.None:
 					break;
+
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 
-			SubSpeciesCombo.ItemsSource = GetSpeciesOptions(type);
+			Debug.WriteLine("Updating subspecies types.");
+			var types = GetSpeciesOptions(type);
+			var itemsSource = types as IList<string> ?? types.ToList();
+			SubSpeciesCombo.ItemsSource = itemsSource;
+			Debug.WriteLine($"New types: {string.Join(",", itemsSource)}");
 		}
 
 		private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -88,15 +94,17 @@ namespace AuroraRecordGenerator
 					switch (
 						await
 							this.ShowMessageAsync("File Error",
-								"Current file missing, renamed or deleted. Do you want to save as another name?", 
+								"Current file missing, renamed, or deleted. Do you want to save as another name?",
 								MessageDialogStyle.AffirmativeAndNegative))
 					{
 						case MessageDialogResult.Negative:
 							_currentFilePath = null;
 							return;
+
 						case MessageDialogResult.Affirmative:
 							SaveContentAs(null, null);
 							return;
+
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
@@ -130,7 +138,9 @@ namespace AuroraRecordGenerator
 		{
 			var dialog = new Microsoft.Win32.SaveFileDialog
 			{
-				AddExtension = true, CheckPathExists = true, Filter = "Character Profiles (*.ss13prof)|*.ss13prof|All Files (*.*)|*.*"
+				AddExtension = true,
+				CheckPathExists = true,
+				Filter = "Character Profiles (*.ss13prof)|*.ss13prof|All Files (*.*)|*.*"
 			};
 			if (!(dialog.ShowDialog() ?? false)) return;
 			var fs = File.Open(dialog.FileName, FileMode.Create);
@@ -138,14 +148,17 @@ namespace AuroraRecordGenerator
 			_currentFilePath = dialog.FileName;
 		}
 
-		public static IList<string> GetSpeciesOptions()
-		{
-			return Enum.GetValues(typeof(SpeciesSubType)).Cast<SpeciesSubType>().Select(item => Utility.SubspeciesNiceName(item)).ToList();
-		}
+		private static IEnumerable<string> GetSpeciesOptions() => Enum.GetValues(typeof(SpeciesSubType)).Cast<SpeciesSubType>().Select(Utility.SubspeciesNiceName);
 
-		public static IList<string> GetSpeciesOptions(SpeciesType limitTo)
+		private static IEnumerable<string> GetSpeciesOptions(SpeciesType limitTo)
 		{
-			return Enum.GetValues(typeof(SpeciesSubType)).Cast<SpeciesSubType>().Select(item => Utility.SubspeciesNiceName(item)).ToList();
+			var targetAttr = limitTo.GetAttributeOfType<SubspeciesMetaAttribute>()?.AssociatedSpecies;
+			if (targetAttr == null)
+				return GetSpeciesOptions();
+			return from item in Enum.GetValues(typeof(SpeciesSubType)).Cast<SpeciesSubType>()
+				let attr = item.GetAttributeOfType<SubspeciesMetaAttribute>()
+				where attr != null && attr.AssociatedSpecies == targetAttr
+				select Utility.SubspeciesNiceName(item);
 		}
 	}
 }

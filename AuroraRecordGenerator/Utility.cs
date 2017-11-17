@@ -7,77 +7,20 @@ namespace AuroraRecordGenerator
 {
 	public static class Utility
 	{
-		/// <summary>
-		///     Splits a string into an array of strings.
-		/// </summary>
-		/// <param name="source">The string to split.</param>
-		/// <param name="predictedSplitLen">How large each string probably will be. Specify to theoretically improve performance.</param>
-		/// <param name="splitValues">Array of chars to split on.</param>
-		/// <returns></returns>
-		public static IEnumerable<string> LazySplit(this string source, int predictedSplitLen, params char[] splitValues)
-		{
-			var builder = predictedSplitLen <= 0
-				? new StringBuilder()
-				: new StringBuilder(predictedSplitLen);
-			foreach (var c in source)
-			{
-				if (splitValues.Contains(c))
-				{
-					// split off string
-					var result = builder.ToString();
-					builder.Clear();
-					yield return result;
-				}
-
-				builder.Append(c);
-			}
-		}
-
-		/// <summary>
-		///     Splits a string into an array of strings.
-		/// </summary>
-		/// <param name="source">The string to split.</param>
-		/// <param name="splitValues">Array of chars to split on.</param>
-		/// <returns></returns>
-		public static IEnumerable<string> LazySplit(this string source, params char[] splitValues) =>
-			source.LazySplit(-1, splitValues);
-
-		/// <summary>
-		///     Splits a string into an array of strings.
-		/// </summary>
-		/// <param name="source">The string to split.</param>
-		/// <param name="predictedSplitLen">How large each string probably will be. Specify to theoretically improve performance.</param>
-		/// <param name="splitValue">Char to split on.</param>
-		/// <returns></returns>
-		public static IEnumerable<string> LazySplit(this string source, int predictedSplitLen, char splitValue)
-		{
-			var builder = predictedSplitLen <= 0
-				? new StringBuilder()
-				: new StringBuilder(predictedSplitLen);
-			foreach (var c in source)
-			{
-				if (c == splitValue)
-				{
-					// split off string
-					var result = builder.ToString();
-					builder.Clear();
-					yield return result;
-				}
-
-				builder.Append(c);
-			}
-		}
-
-		public static IList<string> LineSplit(this string source) => 
+		public static IList<string> LineSplit(this string source) =>
 			source.Split('\n').Where(item => item.Trim().Length != 0).ToList();
-
 
 		public static string CmToFeet(double cm)
 		{
 			return "0'0\"";
 		}
 
-		public static string KgToLb(double kg) => $"{Math.Round(kg * 2.2046, 2)} lb";
+		/// <summary>
+		///	Converts a weight in Kilograms to Pounds.
+		/// </summary>
+		/// <param name="kg">The weight in kilograms.</param>
+		/// <returns>The weight converted to pounds.</returns>
+		public static double KgToLb(double kg) => Math.Round(kg * 2.2046, 2);
 
 		/// <summary>
 		/// Returns <paramref name="val"/> and a trailing space if val is not whitespace, <see cref="string.Empty"/> otherwise.
@@ -91,12 +34,12 @@ namespace AuroraRecordGenerator
 
 		public static bool IsEmpty(this string val) => string.IsNullOrWhiteSpace(val);
 
-		public static string FormatAsList(this IEnumerable<string> target) => 
+		public static string FormatAsList(this IEnumerable<string> target) =>
 			target.Aggregate(new StringBuilder(), (b, s) => b.AppendLine($" - {s.Trim()}")).ToString();
 
 		public static string Repeat(this string target, int repeatNum)
 		{
-			var builder = new StringBuilder(target.Length*repeatNum);
+			var builder = new StringBuilder(target.Length * repeatNum);
 			for (var i = 0; i < repeatNum; i++)
 				builder.Append(target);
 
@@ -113,23 +56,27 @@ namespace AuroraRecordGenerator
 
 		public static string SubspeciesNiceName(SpeciesSubType species)
 		{
-			switch (species)
-			{
-				case SpeciesSubType.MsaiTajara:
-					return "M'sai";
-				case SpeciesSubType.ZhanTajara:
-					return "Zhan-Khazan";
-				case SpeciesSubType.VaurcaWorker:
-					return "Worker (Type A)";
-				case SpeciesSubType.VaurcaBreeder:
-					return "Warrior (Type B)";
-				case SpeciesSubType.IpcShell:
-					return "Shell Frame";
-				case SpeciesSubType.IpcG1Industrial:
-					return "Industrial Frame";
-				default:
-					return Enum.GetName(typeof(SpeciesSubType), species);
-			}
+			var attr = species.GetAttributeOfType<SubspeciesMetaAttribute>();
+			return attr?.NiceName ?? Enum.GetName(typeof(SpeciesSubType), species);
+		}
+	}
+
+	// From https://stackoverflow.com/questions/1799370/getting-attributes-of-enums-value
+	public static class EnumHelper
+	{
+		/// <summary>
+		/// Gets an attribute on an enum field value
+		/// </summary>
+		/// <typeparam name="T">The type of the attribute you want to retrieve</typeparam>
+		/// <param name="enumVal">The enum value</param>
+		/// <returns>The attribute of type T that exists on the enum value</returns>
+		/// <example>string desc = myEnumVariable.GetAttributeOfType<DescriptionAttribute>().Description;</example>
+		public static T GetAttributeOfType<T>(this Enum enumVal) where T : Attribute
+		{
+			var type = enumVal.GetType();
+			var memInfo = type.GetMember(enumVal.ToString());
+			var attributes = memInfo[0].GetCustomAttributes(typeof(T), false);
+			return attributes.Length > 0 ? (T)attributes[0] : null;
 		}
 	}
 }

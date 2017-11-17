@@ -6,29 +6,14 @@ namespace AuroraRecordGenerator
 {
 	internal partial class RecordFormatter
 	{
-		public Record TargetRecord
-		{
-			get { return _targetRecord; }
-			set
-			{
-				UpdateSplitRecords();
-				MakeCommonRecords();
-				_lastRecordHash = value.GetHashCode();
-				_targetRecord = value;
-			}
-		}
+		private Record _targetRecord;
 
 		public RecordFormatter(Record r)
 		{
 			_targetRecord = r;
 			UpdateSplitRecords();
 			MakeCommonRecords();
-			_lastRecordHash = r.GetHashCode();
 		}
-
-		private Record _targetRecord;
-
-		private int? _lastRecordHash;
 
 		private IList<string> _medicalPublicRecord;
 		private IList<string> _medicalHistory;
@@ -47,7 +32,6 @@ namespace AuroraRecordGenerator
 		private IList<string> _employmentFormalEducation;
 		private IList<string> _employmentNtEmployment;
 		private IList<string> _employmentSkills;
-
 
 		private void UpdateSplitRecords()
 		{
@@ -79,50 +63,14 @@ namespace AuroraRecordGenerator
 
 			// flush the record cache so they're regenerated
 			_commonRecords = null;
-			_medicalRecordGenerated = null;
-			_securityRecordGenerated = null;
-			_employmentRecordGenerated = null;
 		}
 
-		public string EmploymentRecords
-		{
-			get
-			{
-				//if (_employmentRecordGenerated.IsEmpty())
-					MakeEmploymentRecords();
-				return _employmentRecordGenerated;
-			}
-		}
-
-		private string _employmentRecordGenerated;
-
-		public string MedicalRecords
-		{
-			get
-			{
-				//if (_medicalRecordGenerated.IsEmpty())
-					MakeMedicalRecords();
-				return _medicalRecordGenerated;
-			}
-		}
-
-		private string _medicalRecordGenerated;
-
-		public string SecurityRecords
-		{
-			get
-			{
-				//if (_securityRecordGenerated.IsEmpty())
-					MakeSecurityRecords();
-				return _securityRecordGenerated;
-			}
-		}
-
-		private string _securityRecordGenerated;
+		public string EmploymentRecords => MakeEmploymentRecords();
+		public string MedicalRecords => MakeMedicalRecords();
+		public string SecurityRecords => MakeSecurityRecords();
 
 		private string _commonRecords;
 		
-
 		/// <summary>
 		///		Writes the <see cref="string"/> form of a record section to the specified <see cref="StringBuilder"/>, as long as there's entries to write.
 		/// </summary>
@@ -135,19 +83,6 @@ namespace AuroraRecordGenerator
 				return;
 			builder.AppendLine(header);
 			builder.AppendLine(entries.FormatAsList());
-		}
-
-		/// <summary>
-		///		Writes the <see cref="string"/> form of a record section to the specified <see cref="StringBuilder"/>, as long as there's entries to write. 
-		///		Inserts a newline before the section.
-		/// </summary>
-		/// <param name="builder">The <see cref="StringBuilder"/> to write to.</param>
-		/// <param name="header">The title for the section.</param>
-		/// <param name="entries">The entries of this section.</param>
-		private static void WritePrefixedSectionifAny(ref StringBuilder builder, string header, IList<string> entries)
-		{
-			builder.AppendLine();
-			WriteSectionIfAny(ref builder, header, entries);
 		}
 
 		private string MakeNameLine()
