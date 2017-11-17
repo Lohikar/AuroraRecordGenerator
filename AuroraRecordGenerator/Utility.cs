@@ -59,6 +59,14 @@ namespace AuroraRecordGenerator
 			var attr = species.GetAttributeOfType<SubspeciesMetaAttribute>();
 			return attr?.NiceName ?? Enum.GetName(typeof(SpeciesSubType), species);
 		}
+
+		public static SpeciesSubType SubspeciesNiceNameToEnum(string nicename)
+		{
+			return (from item in Enum.GetValues(typeof(SpeciesSubType)).Cast<SpeciesSubType>()
+				let attr = item.GetAttributeOfType<SubspeciesMetaAttribute>()
+				where attr != null && attr.NiceName == nicename
+				select item).FirstOrDefault();
+		}
 	}
 
 	// From https://stackoverflow.com/questions/1799370/getting-attributes-of-enums-value

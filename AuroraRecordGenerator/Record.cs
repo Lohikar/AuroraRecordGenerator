@@ -22,11 +22,14 @@ namespace AuroraRecordGenerator
 		[ProtoMember(5, IsRequired = true)]
 		public SpeciesType Species { get; set; } = SpeciesType.Human;
 
+		[ProtoMember(16)]
+		public SpeciesSubType Subspecies { get; set; } = SpeciesSubType.None;
+
 		[ProtoMember(6, IsRequired = true)]
 		public GenderType Gender { get; set; }
 
 		[ProtoMember(7)]
-		public DateTime BirthDate { get; set; } = DateTime.Parse("1/1/2458");
+		public DateTime BirthDate { get; set; } = Info.IcDate;
 
 		[ProtoMember(8)]
 		public double? CharHeight { get; set; } = 170;

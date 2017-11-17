@@ -16,7 +16,6 @@
                 <x:Type TypeName="local:SpeciesType" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider x:Key="SubspeciesEnum" MethodName="GetSpeciesOptions" ObjectType="{x:Type local:RecordEditor}"/>
     </controls:MetroWindow.Resources>
     <Grid>
         <TabControl Margin="0,10,0,44.96" controls:TabControlHelper.IsUnderlined="True">
@@ -260,19 +259,19 @@
                         </Grid.RowDefinitions>
                         <!-- Opt-Outs -->
                         <Grid Grid.Row="0" ToolTip="If the character wishes to not be cloned.">
-                            <CheckBox Content="Do Not Clone" HorizontalAlignment="Left"
+                            <CheckBox x:Name="NoClone" Content="Do Not Clone" HorizontalAlignment="Left"
                                       Margin="10,10,0,0" VerticalAlignment="Top" />
-                            <CheckBox Content="No Prosthetics"
+                            <CheckBox x:Name="NoProsthetic" Content="No Prosthetics"
                                       HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"
                                       ToolTip="If the character should not be fitted with prosthetics." />
-                            <CheckBox Content="Do Not Borgify" HorizontalAlignment="Left"
+                            <CheckBox x:Name="NoBorg" Content="Do Not Borgify" HorizontalAlignment="Left"
                                       Margin="136,10,0,0" VerticalAlignment="Top"
                                       ToolTip="If the character should not be borged." />
-                            <CheckBox Content="Do Not Resuscitate"
+                            <CheckBox x:Name="NoRevive" Content="Do Not Resuscitate"
                                       HorizontalAlignment="Left" Margin="136,33,0,0" VerticalAlignment="Top"
                                       ToolTip="If the character should not be revived." />
                         </Grid>
-                        <!-- whee, user-resizable stuff is fun! Not. -->
+                        <!-- user-resizable stuff is fun! Not. -->
                         <GridSplitter Grid.Row="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch"
                                       VerticalAlignment="Bottom" Margin="0" Height="10" />
                         <GridSplitter Grid.Row="2" Grid.ColumnSpan="1" HorizontalAlignment="Stretch"

@@ -37,22 +37,22 @@ namespace AuroraRecordGenerator
 		[ProtoEnum, SubspeciesMeta(SpeciesType.None, "N/A")]
 		None = 0,
 
-		[ProtoEnum, SubspeciesMeta(SpeciesType.Tajara, "M'sai")]
+		[ProtoEnum, SubspeciesMeta(SpeciesType.Tajara, "M'sai", "Ethnicity")]
 		MsaiTajara,
 
-		[ProtoEnum, SubspeciesMeta(SpeciesType.Tajara, "Zhan-Khazan")]
+		[ProtoEnum, SubspeciesMeta(SpeciesType.Tajara, "Zhan-Khazan", "Ethnicity")]
 		ZhanTajara,
 
-		[ProtoEnum, SubspeciesMeta(SpeciesType.Vaurca, "Type A (Worker)")]
+		[ProtoEnum, SubspeciesMeta(SpeciesType.Vaurca, "Type A (Worker)", "Classification")]
 		VaurcaWorker,
 
-		[ProtoEnum, SubspeciesMeta(SpeciesType.Vaurca, "Type B (Warrior)")]
+		[ProtoEnum, SubspeciesMeta(SpeciesType.Vaurca, "Type B (Warrior)", "Classification")]
 		VaurcaWarrior,
 
-		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Shell Frame")]
+		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Shell Frame", "Subtype")]
 		IpcShell,
 
-		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Industrial Frame")]
+		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Industrial Frame", "Subtype")]
 		IpcG1Industrial
 	}
 
@@ -84,10 +84,12 @@ namespace AuroraRecordGenerator
 	{
 		public SpeciesType AssociatedSpecies {get; private set;}
 		public string NiceName { get; private set; }
-		public SubspeciesMetaAttribute(SpeciesType associatedType, string nicename)
+		public string FieldName { get; private set; }
+		public SubspeciesMetaAttribute(SpeciesType associatedType, string nicename, string fieldname = "Subspecies")
 		{
 			AssociatedSpecies = associatedType;
 			NiceName = nicename;
+			FieldName = fieldname;
 		}
 	}
 }

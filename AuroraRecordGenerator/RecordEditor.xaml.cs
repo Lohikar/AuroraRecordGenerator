@@ -77,7 +77,15 @@ namespace AuroraRecordGenerator
 
 		private void GenerateRecord(object sender, RoutedEventArgs e)
 		{
-			// THIS IS IT
+			// Update medical checkboxes.
+			Data.NoClone = NoClone.IsChecked ?? false;
+			Data.NoBorg = NoBorg.IsChecked ?? false;
+			Data.NoProsthetic = NoProsthetic.IsChecked ?? false;
+			Data.NoRevive = NoRevive.IsChecked ?? false;
+			// Figure out what subspecies we've got.
+			var subspecies = SubSpeciesCombo.SelectedItem as string;
+			Data.Subspecies = subspecies != null ? Utility.SubspeciesNiceNameToEnum(subspecies) : SpeciesSubType.None;
+
 			var wnd = new GeneratedResultWindow(Data);
 			wnd.Show();
 		}

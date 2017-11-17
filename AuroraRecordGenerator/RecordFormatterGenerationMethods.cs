@@ -13,6 +13,10 @@ namespace AuroraRecordGenerator
 			record.AppendLine(MakeNameLine());
 			record.AppendLine($"Date of Birth: {_targetRecord.BirthDate.ToString("MMMM")} {_targetRecord.BirthDate.Day.Ordinalize()}, {_targetRecord.BirthDate.Year}");
 			record.AppendLine($"Species: {_targetRecord.Species.Humanize()}");// might fuck up the names
+			if (_targetRecord.Subspecies != SpeciesSubType.None)
+			{
+				record.AppendLine($"{_targetRecord.Subspecies.GetAttributeOfType<SubspeciesMetaAttribute>()?.FieldName ?? "Subspecies"}: {Utility.SubspeciesNiceName(_targetRecord.Subspecies)}");
+			}
 			record.AppendLine(_targetRecord.Species.HasGender()
 				? $"Gender: {_targetRecord.Gender.Humanize()}"
 				: "Gender: Not Applicable.");
