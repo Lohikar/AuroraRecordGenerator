@@ -109,7 +109,7 @@
                                 <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="5,57,0,0" TextWrapping="Wrap" Text="Citizenship" VerticalAlignment="Top" />
                                 <ComboBox Grid.Column="0" x:Name="SubSpeciesCombo" Margin="10,120,5,0"
                                     VerticalAlignment="Top"
-                                    ToolTip="Your character's species. Required."
+                                    ToolTip="Your character's ethnic group or subtype."
                                     SelectionChanged="SpeciesSelectChanged" Height="26"
     />
                                 <TextBlock Grid.Column="0" Margin="10,104,10,0" TextWrapping="Wrap"

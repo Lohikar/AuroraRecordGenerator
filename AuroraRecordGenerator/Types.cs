@@ -34,7 +34,7 @@ namespace AuroraRecordGenerator
 	[ProtoContract]
 	public enum SpeciesSubType
 	{
-		[ProtoEnum]
+		[ProtoEnum, SubspeciesMeta(SpeciesType.None, "N/A")]
 		None = 0,
 
 		[ProtoEnum, SubspeciesMeta(SpeciesType.Tajara, "M'sai")]

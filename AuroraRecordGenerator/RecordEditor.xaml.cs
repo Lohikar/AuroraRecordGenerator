@@ -150,15 +150,9 @@ namespace AuroraRecordGenerator
 
 		private static IEnumerable<string> GetSpeciesOptions() => Enum.GetValues(typeof(SpeciesSubType)).Cast<SpeciesSubType>().Select(Utility.SubspeciesNiceName);
 
-		private static IEnumerable<string> GetSpeciesOptions(SpeciesType limitTo)
-		{
-			var targetAttr = limitTo.GetAttributeOfType<SubspeciesMetaAttribute>()?.AssociatedSpecies;
-			if (targetAttr == null)
-				return GetSpeciesOptions();
-			return from item in Enum.GetValues(typeof(SpeciesSubType)).Cast<SpeciesSubType>()
-				let attr = item.GetAttributeOfType<SubspeciesMetaAttribute>()
-				where attr != null && attr.AssociatedSpecies == targetAttr
-				select Utility.SubspeciesNiceName(item);
-		}
+		private static IEnumerable<string> GetSpeciesOptions(SpeciesType limitTo) => from item in Enum.GetValues(typeof(SpeciesSubType)).Cast<SpeciesSubType>()
+																					 let attr = item.GetAttributeOfType<SubspeciesMetaAttribute>()
+																					 where attr != null && (attr.AssociatedSpecies == limitTo || attr.AssociatedSpecies == SpeciesType.None)
+																					 select Utility.SubspeciesNiceName(item);
 	}
 }

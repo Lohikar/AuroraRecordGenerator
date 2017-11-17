@@ -16,7 +16,7 @@ namespace AuroraRecordGenerator
 			record.AppendLine(_targetRecord.Species.HasGender()
 				? $"Gender: {_targetRecord.Gender.Humanize()}"
 				: "Gender: Not Applicable.");
-			record.AppendLine($"Citizenship: {_targetRecord.Citizenship.IfEmpty("None.")}");
+			record.AppendLine($"Citizenship: {_targetRecord.Citizenship.IfEmpty("Not Specified.")}");
 			record.AppendLine($"Clearance Level: {_targetRecord.Clearance.IfEmpty("Not Specified")}");
 			record.AppendLine($"Employed As: {_targetRecord.EmployedAs.IfEmpty("Assistant")}");
 			if (_targetRecord.CharHeight != null)
@@ -27,8 +27,8 @@ namespace AuroraRecordGenerator
 
 			// identifying features
 			var trimmedFeatures = _targetRecord.DistinguishingFeatures.Trim();
-			if (trimmedFeatures.Length > 0)
-				record.AppendLine($"Distinguishing Features: {trimmedFeatures}");
+			record.Append("Distinguishing Features: ");
+			record.AppendLine(trimmedFeatures.Length > 0 ? trimmedFeatures : "None noted.");
 
 			record.AppendLine();
 
