@@ -29,6 +29,16 @@ namespace AuroraRecordGenerator
 			if (_targetRecord.Weight != null)
 				record.AppendLine($"Weight: {_targetRecord.Weight} kg ({Utility.KgToLb(_targetRecord.Weight ?? 0)} lb)");
 
+			// Eye color
+			var trimmedEye = _targetRecord.EyeColor.Trim();
+			record.AppendFormat("Eye Color: {0}\n", trimmedEye.Length > 0 ? trimmedEye : "Not Specified.");
+
+			var bodyColor = _targetRecord.SkinColor.Trim();
+			record.AppendFormat("Skin/Body Color: {0}\n", bodyColor.Length > 0 ? bodyColor : "Not Specified.");
+
+			var hairColor = _targetRecord.HairColor.Trim();
+			record.AppendFormat("Hair Color: {0}\n", hairColor.Length > 0 ? hairColor : "Not Specified.");
+
 			// identifying features
 			var trimmedFeatures = _targetRecord.DistinguishingFeatures.Trim();
 			record.Append("Distinguishing Features: ");

@@ -35,18 +35,18 @@
                                          Margin="10,26,5,0"
                                          TextWrapping="Wrap" VerticalAlignment="Top"
                                          ToolTip="Your character's first name. Required."
-                                         Text="{Binding Path=FirstName}" controls:TextBoxHelper.Watermark="Urist" />
+                                         Text="{Binding Path=FirstName}" controls:TextBoxHelper.Watermark="Urist" TabIndex="1" />
                                 <TextBox Height="26"
                                          Margin="0,26,0,0"
                                          TextWrapping="Wrap"
                                          ToolTip="Your character's middle name. Optional." Grid.Column="1"
                                          HorizontalAlignment="Left" Width="120" VerticalAlignment="Top"
-                                         Text="{Binding Path=MiddleName}" />
+                                         Text="{Binding Path=MiddleName}" TabIndex="2" />
                                 <TextBox Height="26"
                                          Margin="125,26,0,0"
                                          TextWrapping="Wrap" VerticalAlignment="Top"
                                          ToolTip="Your character's last name. Required." Grid.Column="1"
-                                         Text="{Binding Path=LastName}" controls:TextBoxHelper.Watermark="McScientist" />
+                                         Text="{Binding Path=LastName}" controls:TextBoxHelper.Watermark="McScientist" TabIndex="3" />
                                 <TextBlock Grid.Column="0" Margin="10,10,10,0" TextWrapping="Wrap"
                                            Text="First"
                                            VerticalAlignment="Top" Height="16" />
@@ -60,7 +60,7 @@
                                          Margin="5,26,10.5,0" TextWrapping="Wrap"
                                          ToolTip="Your character's name suffix, if present. Optional." Grid.Column="2"
                                          VerticalAlignment="Top"
-                                         Text="{Binding Path=NameSuffix}" controls:TextBoxHelper.Watermark="the Third" />
+                                         Text="{Binding Path=NameSuffix}" controls:TextBoxHelper.Watermark="the Third" TabIndex="4" />
                                 <TextBlock HorizontalAlignment="Left" Margin="5,10,0,0" TextWrapping="Wrap"
                                            Text="Suffix (Optional)" VerticalAlignment="Top" Grid.Column="2"
                                            Height="15.96" Width="150" />
@@ -71,14 +71,14 @@
                                           VerticalAlignment="Top"
                                           ItemsSource="{Binding Source={StaticResource SpeciesEnum}}"
                                           ToolTip="Your character's species. Required."
-                                          SelectionChanged="SpeciesSelectChanged" Height="26"/>
+                                          SelectionChanged="SpeciesSelectChanged" Height="26" TabIndex="5"/>
                                 <TextBlock HorizontalAlignment="Left" Margin="0,57,0,0" TextWrapping="Wrap"
                                            Text="Gender"
                                            VerticalAlignment="Top" Grid.Column="1" Height="15.96" Width="120"/>
                                 <ComboBox x:Name="GenderCombo" HorizontalAlignment="Left" Margin="0,73,0,0"
                                           VerticalAlignment="Top" Width="120"
                                           ToolTip="Your character's gender. Does not apply to Dionae and IPCs."
-                                          Grid.Column="1" Height="26">
+                                          Grid.Column="1" Height="26" TabIndex="6">
                                     <ComboBoxItem Content="Male" />
                                     <!-- Define here instead of loading from enum as we don't want NotApplicable listed -->
                                     <ComboBoxItem Content="Female" />
@@ -87,7 +87,7 @@
                                             SelectedDateFormat="Short" DisplayDateEnd="2470-01-01"
                                             DisplayDateStart="1955-01-01" DisplayDate="2458-01-01" Grid.Column="1"
                                             Height="26"
-                                            SelectedDate="{Binding Path=BirthDate}" />
+                                            SelectedDate="{Binding Path=BirthDate}" TabIndex="7" />
                                 <TextBlock Margin="125,57,40.96,0" TextWrapping="Wrap" Text="Date of Birth"
                                            VerticalAlignment="Top" Grid.Column="1" Height="15.96" />
                                 <TextBlock Grid.Column="0" Margin="10,0,0,34" TextWrapping="Wrap" Text="Clearance"
@@ -96,20 +96,20 @@
                                          VerticalAlignment="Bottom" Grid.ColumnSpan="2"
                                          Grid.Column="0"
                                          controls:TextBoxHelper.Watermark="Staff (Research, Xenobiology), Command (Research)"
-                                         Text="{Binding Path=Clearance}" />
+                                         Text="{Binding Path=Clearance}" TabIndex="11" />
                                 <TextBlock HorizontalAlignment="Left" Margin="0,0,0,81"
                                            TextWrapping="Wrap" Text="Employed As" VerticalAlignment="Bottom" Grid.Column="1" />
                                 <TextBox Height="23" Margin="0,0,0,55" TextWrapping="Wrap"
                                          VerticalAlignment="Bottom" controls:TextBoxHelper.Watermark="Xenobiologist"
-                                         Text="{Binding Path=EmployedAs}" HorizontalAlignment="Left" Width="260" Grid.Column="1" />
+                                         Text="{Binding Path=EmployedAs}" HorizontalAlignment="Left" Width="260" Grid.Column="1" TabIndex="10" />
                                 <TextBox Grid.Column="2" Height="23" Margin="5,73,10.5,0"
                                          TextWrapping="Wrap" VerticalAlignment="Top" controls:TextBoxHelper.Watermark="Sol Alliance"
-                                         Text="{Binding Path=Citizenship}" />
+                                         Text="{Binding Path=Citizenship}" TabIndex="8" />
                                 <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="5,57,0,0" TextWrapping="Wrap" Text="Citizenship" VerticalAlignment="Top" />
                                 <ComboBox Grid.Column="0" x:Name="SubSpeciesCombo" Margin="10,120,5,0"
                                     VerticalAlignment="Top"
                                     ToolTip="Your character's ethnic group or subtype."
-                                    SelectionChanged="SpeciesSelectChanged" Height="26"
+                                    SelectionChanged="SpeciesSelectChanged" Height="26" TabIndex="9"
     />
                                 <TextBlock Grid.Column="0" Margin="10,104,10,0" TextWrapping="Wrap"
                                     Text="Subtype/Ethnicity"
@@ -130,13 +130,13 @@
                                                         HorizontalAlignment="Left" Margin="10,26,0,0"
                                                         Minimum="10" Maximum="400" HideUpDownButtons="True" Width="1"
                                                         StringFormat="N1" VerticalAlignment="Top"
-                                                        HorizontalContentAlignment="Center" />
+                                                        HorizontalContentAlignment="Center" TabIndex="12" />
                                 <controls:NumericUpDown Grid.Column="0"
                                                         Value="{Binding Path=Weight}"
                                                         HorizontalAlignment="Left" Margin="77.033,26,0,0"
-                                                        Minimum="10" Maximum="100" HideUpDownButtons="True" Width="1"
+                                                        Minimum="10" Maximum="1000" HideUpDownButtons="True" Width="1"
                                                         StringFormat="N1" VerticalAlignment="Top"
-                                                        HorizontalContentAlignment="Center" />
+                                                        HorizontalContentAlignment="Center" TabIndex="13" />
                                 <TextBlock Grid.Column="0" HorizontalAlignment="Left" Margin="77.033,10,0,0"
                                            TextWrapping="Wrap"
                                            VerticalAlignment="Top" Text="Weight (kg)" />
@@ -146,18 +146,18 @@
                                 <TextBox Grid.Column="0" Height="23"
                                          Margin="144.033,25.96,261.967,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                          ToolTip="The color of your character's skin/scales/fur/chassis. Not applicable for Dionae."
-                                         d:LayoutOverrides="HorizontalAlignment" Text="{Binding Path=SkinColor}" />
+                                         d:LayoutOverrides="HorizontalAlignment" Text="{Binding Path=SkinColor}" TabIndex="14" />
                                 <TextBlock Grid.Column="0" HorizontalAlignment="Left" Margin="10,57,0,52"
                                            TextWrapping="Wrap"
                                            Text="Distinguishing Features" d:LayoutOverrides="Height" />
                                 <TextBox Grid.Column="0" Height="23"
                                          Margin="10,0,0,26" Text="{Binding Path=DistinguishingFeatures}"
-                                         TextWrapping="Wrap" VerticalAlignment="Bottom" />
+                                         TextWrapping="Wrap" VerticalAlignment="Bottom" TabIndex="17" />
                                 <TextBox Grid.Column="0" Height="23"
                                          Margin="0,25.96,136.967,0"
                                          TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right"
                                          Width="120" d:LayoutOverrides="HorizontalAlignment"
-                                         Text="{Binding Path=HairColor}" />
+                                         Text="{Binding Path=HairColor}" TabIndex="15" />
                                 <TextBlock Grid.Column="0" Margin="0,10,203.403,0" TextWrapping="Wrap"
                                            Text="Hair Color"
                                            VerticalAlignment="Top" HorizontalAlignment="Right"
@@ -165,7 +165,7 @@
                                 <TextBox Grid.Column="0" HorizontalAlignment="Right"
                                          Margin="0,25.96,0,0"
                                          TextWrapping="Wrap" Width="131.967" Height="26" VerticalAlignment="Top"
-                                         Text="{Binding Path=EyeColor}" />
+                                         Text="{Binding Path=EyeColor}" TabIndex="16" />
                                 <TextBlock Grid.Column="0" HorizontalAlignment="Right" Margin="0,10,81.957,0"
                                            TextWrapping="Wrap"
                                            Text="Eye Color" VerticalAlignment="Top" />
@@ -260,16 +260,16 @@
                         <!-- Opt-Outs -->
                         <Grid Grid.Row="0" ToolTip="If the character wishes to not be cloned.">
                             <CheckBox x:Name="NoClone" Content="Do Not Clone" HorizontalAlignment="Left"
-                                      Margin="10,10,0,0" VerticalAlignment="Top" />
+                                      Margin="10,10,0,0" VerticalAlignment="Top" TabIndex="1" />
                             <CheckBox x:Name="NoProsthetic" Content="No Prosthetics"
                                       HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"
-                                      ToolTip="If the character should not be fitted with prosthetics." />
+                                      ToolTip="If the character should not be fitted with prosthetics." TabIndex="3" />
                             <CheckBox x:Name="NoBorg" Content="Do Not Borgify" HorizontalAlignment="Left"
                                       Margin="136,10,0,0" VerticalAlignment="Top"
-                                      ToolTip="If the character should not be borged." />
+                                      ToolTip="If the character should not be borged." TabIndex="2" />
                             <CheckBox x:Name="NoRevive" Content="Do Not Resuscitate"
                                       HorizontalAlignment="Left" Margin="136,33,0,0" VerticalAlignment="Top"
-                                      ToolTip="If the character should not be revived." />
+                                      ToolTip="If the character should not be revived." TabIndex="4" />
                         </Grid>
                         <!-- user-resizable stuff is fun! Not. -->
                         <GridSplitter Grid.Row="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch"
@@ -291,42 +291,42 @@
                                  controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
                                  ToolTip="Public medical notes posted on employment and security records. One per line."
                                  Grid.Row="1" VerticalScrollBarVisibility="Auto"
-                                 Text="{Binding Path=MedicalPublicRecord}" />
+                                 Text="{Binding Path=MedicalPublicRecord}" TabIndex="5" />
                         <TextBox Margin="0,10,0,10" AcceptsReturn="True" TextWrapping="Wrap"
                                  controls:TextBoxHelper.Watermark="Medical History"
                                  controls:TextBoxHelper.UseFloatingWatermark="True"
                                  controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
                                  VerticalScrollBarVisibility="Auto"
                                  ToolTip="Dated list of operations, surgeries, checkups of note, etc. One per line."
-                                 Grid.Row="2" Text="{Binding Path=MedicalHistory}" />
+                                 Grid.Row="2" Text="{Binding Path=MedicalHistory}" TabIndex="6" />
                         <TextBox Margin="0,10,0,10" AcceptsReturn="True" TextWrapping="Wrap"
                                  controls:TextBoxHelper.Watermark="Medical Notes"
                                  controls:TextBoxHelper.UseFloatingWatermark="True"
                                  controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
                                  VerticalScrollBarVisibility="Auto"
                                  ToolTip="Notes about physical/medical health. One per line." Grid.Row="3"
-                                 Text="{Binding Path=MedicalNotes}" />
+                                 Text="{Binding Path=MedicalNotes}" TabIndex="7" />
                         <TextBox Margin="0,10,0,10" AcceptsReturn="True"
                                  TextWrapping="Wrap" controls:TextBoxHelper.Watermark="Psychiatric History"
                                  controls:TextBoxHelper.UseFloatingWatermark="True"
                                  controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
                                  VerticalScrollBarVisibility="Auto"
                                  ToolTip="Dated records of psych evals and other psychological events." Grid.Row="4"
-                                 Text="{Binding Path=MedicalPsychHistory}" />
+                                 Text="{Binding Path=MedicalPsychHistory}" TabIndex="8" />
                         <TextBox Margin="0,10,0,10" AcceptsReturn="True"
                                  TextWrapping="Wrap" controls:TextBoxHelper.Watermark="Psychiatric Notes"
                                  controls:TextBoxHelper.UseFloatingWatermark="True"
                                  controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
                                  VerticalScrollBarVisibility="Auto"
                                  ToolTip="Notes about mental/psychiatric health. One per line." Grid.Row="5"
-                                 Text="{Binding Path=MedicalPsychNotes}" />
+                                 Text="{Binding Path=MedicalPsychNotes}" TabIndex="9" />
                         <TextBox Margin="0,10,0,10" AcceptsReturn="True"
                                  TextWrapping="Wrap" controls:TextBoxHelper.Watermark="Prescriptions"
                                  controls:TextBoxHelper.UseFloatingWatermark="True"
                                  controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
                                  VerticalScrollBarVisibility="Auto"
                                  ToolTip="Notes regarding assigned prescriptions. One per line." Grid.Row="6"
-                                 Text="{Binding Path=MedicalPrescriptions}" />
+                                 Text="{Binding Path=MedicalPrescriptions}" TabIndex="10" />
                     </Grid>
                 </ScrollViewer>
             </TabItem>

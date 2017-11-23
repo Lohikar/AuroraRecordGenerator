@@ -27,7 +27,7 @@ namespace AuroraRecordGenerator
 		/// </summary>
 		/// <param name="val"></param>
 		/// <returns></returns>
-		public static string SpaceIfValue(this string val) => string.IsNullOrWhiteSpace(val) ? string.Empty : " " + val + " ";
+		public static string SpaceIfValue(this string val) => string.IsNullOrWhiteSpace(val) ? string.Empty : $" {val} ";
 
 		public static string IfEmpty(this string target, string fallback) =>
 			target.IsEmpty() ? fallback : target;
