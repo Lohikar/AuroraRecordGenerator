@@ -91,6 +91,20 @@ namespace AuroraRecordGenerator
 			// Figure out their species too.
 			Data.Species = (SpeciesType)SpeciesCombo.SelectedValue;
 
+			// Finally, gender.
+			switch ((string)GenderCombo.SelectionBoxItem)
+			{
+				case "Male":
+					Data.Gender = GenderType.Male;
+					break;
+				case "Female":
+					Data.Gender = GenderType.Female;
+					break;
+				default:
+					Data.Gender = GenderType.NotApplicable;
+					break;
+			}
+
 			var wnd = new GeneratedResultWindow(Data);
 			wnd.Show();
 		}
@@ -128,7 +142,7 @@ namespace AuroraRecordGenerator
 			}
 		}
 
-		private void OpenContent(object sender, RoutedEventArgs e)
+		private async void OpenContent(object sender, RoutedEventArgs e)
 		{
 			var dialog = new Microsoft.Win32.OpenFileDialog
 			{
@@ -141,10 +155,18 @@ namespace AuroraRecordGenerator
 			if (!(dialog.ShowDialog() ?? false)) return;
 
 			var fs = File.Open(dialog.FileName, FileMode.Open);
-			Data = ProtoBuf.Serializer.Deserialize<Record>(fs);
-			_currentFilePath = dialog.FileName;
-			// So WPF updates bindings
-			DataContext = Data;
+			try
+			{
+				Data = ProtoBuf.Serializer.Deserialize<Record>(fs);
+				_currentFilePath = dialog.FileName;
+				// So WPF updates bindings
+				DataContext = Data;
+			}
+			catch (ProtoBuf.ProtoException)
+			{
+				await this.ShowMessageAsync("Profile Error", "An error occurred during loading of your profile. You may have selected a file that is not a profile file, or the profile is corrupted.");
+			}
+			
 		}
 
 		private void SaveContentAs(object sender, RoutedEventArgs e)

@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:AuroraRecordGenerator"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
+        GlowBrush="{DynamicResource AccentColorBrush}"
         Title="Generated Records" Height="500" Width="850" TitleCaps="False">
     <Grid>
-        <TabControl Margin="10">
+        <controls:MetroAnimatedTabControl Margin="10">
             <TabItem Header="Employment">
                 <TextBox x:Name="EmploymentBox" IsReadOnly="True" IsUndoEnabled="False" AutoWordSelection="True" FontFamily="Consolas"/>
             </TabItem>
@@ -18,6 +19,6 @@
             <TabItem Header="Security">
                 <TextBox x:Name="SecurityBox" IsReadOnly="True" IsUndoEnabled="False" AutoWordSelection="True" FontFamily="Consolas"/>
             </TabItem>
-        </TabControl>
+        </controls:MetroAnimatedTabControl>
     </Grid>
 </controls:MetroWindow>
