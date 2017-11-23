@@ -25,6 +25,7 @@ namespace AuroraRecordGenerator
 			ProtoBuf.Serializer.PrepareSerializer<Record>();
 			InitializeComponent();
 			SubSpeciesCombo.ItemsSource = GetSpeciesOptions();
+			VersionLabel.Content = $"v{Utility.GetVersion()}";
 		}
 
 		private Record Data { get; set; }

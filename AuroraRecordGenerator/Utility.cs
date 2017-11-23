@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace AuroraRecordGenerator
@@ -67,6 +68,8 @@ namespace AuroraRecordGenerator
 				where attr != null && attr.NiceName == nicename
 				select item).FirstOrDefault();
 		}
+
+		public static Version GetVersion() => Assembly.GetExecutingAssembly().GetName().Version;
 	}
 
 	// From https://stackoverflow.com/questions/1799370/getting-attributes-of-enums-value
