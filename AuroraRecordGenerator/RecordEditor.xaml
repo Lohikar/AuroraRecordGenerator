@@ -224,14 +224,14 @@
                                  controls:TextBoxHelper.Watermark="Formal Education"
                                  controls:TextBoxHelper.UseFloatingWatermark="True" VerticalScrollBarVisibility="Auto"
                                  controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
-                                 ToolTip="History with employment with NT. One per line, should be in format &quot;Year Description&quot;."
+                                 ToolTip="Formal education completed or in-progress. One per-line."
                                  Text="{Binding Path=EmploymentFormalEducation}" />
                         <TextBox Margin="0,10,0,10" AcceptsReturn="True"
                                  TextWrapping="Wrap" Grid.Row="4"
                                  controls:TextBoxHelper.Watermark="NanoTrasen Employment History"
                                  controls:TextBoxHelper.UseFloatingWatermark="True" VerticalScrollBarVisibility="Auto"
                                  controls:TextBoxHelper.IsSpellCheckContextMenuEnabled="True"
-                                 ToolTip="Formal education completed or in-progress. One per-line."
+                                 ToolTip="History with employment with NT. One per line, should be in format &quot;Year Description&quot;."
                                  Text="{Binding Path=EmploymentNtEmploymentHistory}" />
                         <TextBox Margin="0,10,0,10" AcceptsReturn="True"
                                  TextWrapping="Wrap"
@@ -383,4 +383,3 @@
         </Grid>
     </Grid>
 </controls:MetroWindow>
-    
