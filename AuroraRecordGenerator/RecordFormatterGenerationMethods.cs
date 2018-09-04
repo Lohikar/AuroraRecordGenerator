@@ -24,7 +24,7 @@ namespace AuroraRecordGenerator
 			record.AppendLine($"Clearance Level: {_targetRecord.Clearance.IfEmpty("Not Specified")}");
 			record.AppendLine($"Employed As: {_targetRecord.EmployedAs.IfEmpty("Assistant")}");
 			if (_targetRecord.CharHeight != null)
-				record.AppendLine($"Height: {_targetRecord.CharHeight} cm");// ({Utility.CmToFeet(_targetRecord.CharHeight.Value)})
+				record.AppendLine($"Height: {_targetRecord.CharHeight} cm ({Utility.CmToFeet(_targetRecord.CharHeight.Value)})");
 
 			if (_targetRecord.Weight != null)
 				record.AppendLine($"Weight: {_targetRecord.Weight} kg ({Utility.KgToLb(_targetRecord.Weight ?? 0)} lb)");

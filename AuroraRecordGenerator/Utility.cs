@@ -13,7 +13,10 @@ namespace AuroraRecordGenerator
 
 		public static string CmToFeet(double cm)
 		{
-			return "0'0\"";
+			var feet = Math.Floor(cm * 0.0328084);
+			var inches = Math.Floor(cm * 0.39370079); // Isn't imperial a lovely system?
+			inches -= feet * 12;
+			return $"{feet}'{inches}\"";
 		}
 
 		/// <summary>
