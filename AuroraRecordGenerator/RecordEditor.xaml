@@ -19,7 +19,7 @@
         </ObjectDataProvider>
     </controls:MetroWindow.Resources>
     <Grid>
-        <controls:MetroAnimatedTabControl Margin="0,10,0,44.96" controls:TabControlHelper.IsUnderlined="True">
+        <controls:MetroAnimatedTabControl Margin="10,10,0,45" controls:TabControlHelper.IsUnderlined="True">
             <!-- General Character Information -->
             <TabItem Header="General">
                 <ScrollViewer>
@@ -98,9 +98,9 @@
                                          Grid.Column="0"
                                          controls:TextBoxHelper.Watermark="Staff (Research, Xenobiology), Command (Research)"
                                          Text="{Binding Path=Clearance}" TabIndex="11" />
-                                <TextBlock HorizontalAlignment="Left" Margin="0,0,0,81"
+                                <TextBlock HorizontalAlignment="Left" Margin="0,0,0,85"
                                            TextWrapping="Wrap" Text="Employed As" VerticalAlignment="Bottom" Grid.Column="1" />
-                                <TextBox Height="23" Margin="0,0,0,55" TextWrapping="Wrap"
+                                <TextBox Height="23" Margin="0,0,0,59" TextWrapping="Wrap"
                                          VerticalAlignment="Bottom" controls:TextBoxHelper.Watermark="Xenobiologist"
                                          Text="{Binding Path=EmployedAs}" HorizontalAlignment="Left" Width="260" Grid.Column="1" TabIndex="10" />
                                 <TextBox Grid.Column="2" Height="23" Margin="5,73,10.5,0"
