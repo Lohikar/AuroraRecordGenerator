@@ -98,19 +98,19 @@
                                          Grid.Column="0"
                                          controls:TextBoxHelper.Watermark="Staff (Research, Xenobiology), Command (Research)"
                                          Text="{Binding Path=Clearance}" TabIndex="11" />
-                                <TextBlock HorizontalAlignment="Left" Margin="0,0,0,85"
-                                           TextWrapping="Wrap" Text="Employed As" VerticalAlignment="Bottom" Grid.Column="1" />
-                                <TextBox Height="23" Margin="0,0,0,59" TextWrapping="Wrap"
+                                <TextBlock HorizontalAlignment="Left" Margin="5,0,0,85"
+                                           TextWrapping="Wrap" Text="Employed As" VerticalAlignment="Bottom" Grid.Column="2" />
+                                <TextBox Height="23" Margin="5,0,10,59" TextWrapping="Wrap"
                                          VerticalAlignment="Bottom" controls:TextBoxHelper.Watermark="Xenobiologist"
-                                         Text="{Binding Path=EmployedAs}" HorizontalAlignment="Left" Width="260" Grid.Column="1" TabIndex="10" />
+                                         Text="{Binding Path=EmployedAs}" Grid.Column="2" TabIndex="10" />
                                 <TextBox Grid.Column="2" Height="23" Margin="5,73,10.5,0"
                                          TextWrapping="Wrap" VerticalAlignment="Top" controls:TextBoxHelper.Watermark="Sol Alliance"
                                          Text="{Binding Path=Citizenship}" TabIndex="8" />
                                 <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="5,57,0,0" TextWrapping="Wrap" Text="Citizenship" VerticalAlignment="Top" />
-                                <ComboBox Grid.Column="0" x:Name="SubSpeciesCombo" Margin="10,120,5,0"
+                                <ComboBox Grid.Column="0" x:Name="SubSpeciesCombo" Margin="10,120,140,0"
                                     VerticalAlignment="Top"
                                     ToolTip="Your character's ethnic group or subtype."
-                                    SelectionChanged="SpeciesSelectChanged" Height="26" TabIndex="9"
+                                    SelectionChanged="SpeciesSelectChanged" Height="26" TabIndex="9" Grid.ColumnSpan="2"
     />
                                 <TextBlock Grid.Column="0" Margin="10,104,10,0" TextWrapping="Wrap"
                                     Text="Subtype/Ethnicity"

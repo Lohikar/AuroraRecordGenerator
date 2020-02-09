@@ -49,11 +49,32 @@ namespace AuroraRecordGenerator
 		[ProtoEnum, SubspeciesMeta(SpeciesType.Vaurca, "Type B (Warrior)", "Classification")]
 		VaurcaWarrior,
 
-		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Shell Frame", "Subtype")]
+		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Shell", "Model")]
 		IpcShell,
 
-		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Industrial Frame", "Subtype")]
-		IpcG1Industrial
+		[ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Hephaestus G1 Heavy", "Model")]
+		IpcG1Industrial,
+
+        [ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Hephaestus G2 Heavy", "Model")]
+        IpcG2Industrial,
+
+        [ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Bishop Accessory", "Model")]
+        IpcFancy,
+
+        [ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Zeng-Hu Mobility", "Model")]
+        IpcMedsci,
+
+        [ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Shell", "Model")]
+        IpcHumanoid,
+
+        [ProtoEnum, SubspeciesMeta(SpeciesType.IPC, "Xion Industrial", "Model")]
+        IpcHeavy,
+
+        [ProtoEnum, SubspeciesMeta(SpeciesType.Unathi, "Aut'akh", "Variant")]
+        UnathiRobot,
+
+        [ProtoEnum, SubspeciesMeta(SpeciesType.Human, "Offworlder", "Variant")]
+        HumanOffworld
 	}
 
 	[ProtoContract]
